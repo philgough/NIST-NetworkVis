@@ -1,0 +1,174 @@
+import os
+import ujson as json
+import re
+
+files = []
+for file_name in sorted(os.listdir('./')):
+	if file_name[0] == 'C':
+		l = len(file_name) - 18
+		n = ''
+		for i in range(l):
+			n = n+(file_name[1 + i])
+		# print n
+		files.append(n) 
+print files
+
+
+data = []
+configurations = []
+
+with open('../../js/averages.json', 'wb') as output_f:
+	print '*** writing averages.json ***'
+
+	averages = []
+	for i, f in enumerate(files):
+		# av_list = [{'x':0, 'c':0, 'u':0}]
+		av_list = [[[0],[0],[0]]]
+		# print len(av_list)
+		av_dict = {'x':0, 'c':0, 'u':0}
+		current_file = f
+		rows = []
+		config = []
+		index = 0
+		# read traffic data
+		# with open('VisualizationFile.txt') as data_f:
+		with open('C'+current_file+'Visualization.txt') as data_f:
+			print '*** reading data file ' + str(i) + ' of ' + str(len(files)) + ' ***'
+			
+			# next(data_f)
+			
+
+			for i, row in enumerate(data_f):
+				# print row
+				if i == 0:
+					config = row.strip()
+				else:
+					r = row.strip().split()
+					rows.append(r)
+					if i > 1:
+						if index < r[0]:
+							# print r[0]
+							av_list.append([[0],[0],[0]])
+							index = int(r[0])
+
+						if r[4] == 'X':
+							av_list[index][0][0] += 1
+							# print r[4]
+						elif r[4] == 'C':
+							av_list[index][1][0] += 1
+							# print r[4]
+						elif r[4] == 'U':
+							# print r[4]
+							# print av_list[index]
+							av_list[index][2][0] += 1
+
+		data.append(rows)
+		configurations.append(config)
+		averages.append(av_list)
+	output_f.write('{')
+	for i, f in enumerate(files):
+		# print len(averages[i])
+		print '** file: ' + str(f) + ' ***'
+		if i > 0:
+			output_f.write(",\n")
+		output_f.write('"' + f + '":\n\t[\n')
+		# for max number of timesteps
+		for j in range(1, 3002):
+
+			total = averages[i][j][0][0] + averages[i][j][1][0] + averages[i][j][2][0]
+			# print total
+			if total == 218:
+				if j > 1:
+					output_f.write(',\n')
+				output_f.write('\t\t{"X": ')
+				output_f.write(str(averages[i][j][0][0]))
+				output_f.write(', "C": ')
+				output_f.write(str(averages[i][j][1][0]))
+				output_f.write(', "U": ')
+				output_f.write(str(averages[i][j][2][0]))
+				output_f.write('}')
+		output_f.write('\n\t]')
+	output_f.write('\n}')
+
+
+
+dataDict = {}
+maxRates = []
+
+config_split = config.strip().split()
+config_l = len(config_split)
+
+# print config_split
+
+
+
+for i, f in enumerate(files):
+	print '** file:', str(f)
+	maxRate = re.sub('[^\d\.]', '',config_split[config_l-3])
+	increment = re.sub('[^\d\.]', '',config_split[config_l-1])
+	# print 'maxRate:', maxRate, 'increment:', increment
+	
+	maxRates.append(maxRate)
+	injectionRate = []
+	for j in range(int(maxRate)/int(increment) + 1):
+		router = []
+		for k in range(1, 219): # since there are 218 routers
+			lineDict = {}
+			for l, item in enumerate(data[i][j*218 + k]):
+				lineDict[data[0][0][l]] = item
+				# print data[0][0][l], item
+				# injectionRate.append({data})
+			router.append(lineDict)
+		injectionRate.append(router)
+	dataDict[f] = injectionRate
+
+# write data as JSON v3
+with open('../../js/routerData.json', 'w') as output_f:
+	json.dump(dataDict, output_f)
+
+
+
+
+with open("../js/configurations.json", 'wb') as output_f:
+	print '*** writing configurations.json ***'
+
+	output_f.write('{')
+	output_f.write('// Configurations file numbers\n"files": [\n')
+	for i, f in enumerate(files):
+		if (i > 0):
+			output_f.write(',\n')
+		output_f.write('\t' + f)
+	output_f.write('\n],')
+	
+	output_f.write('\n\n// Configuration strings\n "configurations": [\n')
+	for i, c in enumerate(configurations):
+		if i > 0:
+			output_f.write(',\n')
+		output_f.write('\t"' + c + '"')
+		# for item in c:
+			# output_f.write(str(item))
+	output_f.write('\n],')
+
+	output_f.write('\n\n// Total number of configuration files\n"numFiles": ' + str(len(files)) + ',')
+	
+	output_f.write('\n\n// Number of routers in each network group\n"groupSize": [16, 32, 122, 8, 40],')
+
+	output_f.write('\n\n// Max Injection rates for each file\n"maxRates": [\n\t')
+	for i, m in enumerate(maxRates):
+		if (i > 0):
+			output_f.write(',')
+		output_f.write(str(m))
+	output_f.write('\n],')
+
+
+	output_f.write('\n\n// group titles\n"groupStrings": ["B", "P", "A", "D", "F"],')
+	output_f.write('\n\n// group title strings\n"groupFullStrings": ["Backbone Routers", "Pop Routers", "Normal Access Routers", "Directly Connected Routers", "Fast Access Routers"],')	
+	output_f.write('\n\n// occupancy titles\n"occupancyTitles": ["Cut off", "Congested", "Unoccupied"],')
+	output_f.write('\n\n"increment": ' + str(increment))
+	output_f.write('\n}')
+
+
+
+
+
+print 'done'

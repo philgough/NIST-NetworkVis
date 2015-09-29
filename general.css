@@ -1,0 +1,157 @@
+.link {
+	stroke: #999;
+	stroke-opacity: .6;
+}
+
+#configDiv {
+	font-size: 12px;
+	font-family: monospace;
+	position: absolute;
+	left: 1710px;
+	top: 600px;
+	width: 180px;
+}
+
+#injectionDiv {
+	font-size: 12px;
+	font-family: monospace;
+	position: absolute;
+	left: 1710px;
+	top: 655px;
+	width: 180px;
+}
+
+#controlDiv {
+	font-size: 12px;
+	font-family: monospace;
+	position: absolute;
+	left: 1710px;
+	top: 690px;
+	width: 180px;
+	z-index: 9001;
+}
+
+#vis {
+	border: 1px solid #222;
+	/*background: #000;*/
+}
+
+.tooltip {
+	position: absolute;
+	text-align: center;
+	width: 120px;                  
+	height: 62px;                 
+	padding: 2px;             
+	font: 12px sans-serif;        
+	background: steelblue;
+	border: 0px;      
+	border-radius: 8px;           
+	pointer-events: none; 
+	color: white; 
+}
+
+.tooltip p {
+	margin: 0;
+}
+
+.legend {
+	fill: #999;
+	font-size: 10px;
+}
+
+
+#overview {
+	position: absolute;
+	top: 42px;
+	left: 1092px;
+	border: 0px solid #222;
+	width: 780px;
+	height: 962px;
+}
+
+.sm {
+	font-family: monospace;
+	font-size: 12px;
+	color: #222;
+}
+
+
+
+
+#lineGraph {
+	position: absolute;
+	top: 913px;
+	left: 8px;
+	width: 1080px;
+	height: 88px;
+	/*	background: #ccc;*/
+	border: 1px solid #222;
+}
+
+.feedback {
+	font-size: 12px;
+	font-family: monospace;
+	color: #22d;
+	font-weight: normal;
+}
+
+
+.axis path,
+.axis line {
+	fill: none;
+	stroke: #000;
+	shape-rendering: crispEdges;
+}
+
+.axis {
+	font-size: 8px;
+	font-family: monospace;
+	color: #000;
+}
+
+.configFeedback {
+	position: absolute;
+	left: 1092px;
+	font-family: monospace;
+	font-size: 10px;
+	width: 773px;
+	border: 1px solid #222;
+	top: -2px;
+	padding: 2px;
+}
+
+#nextRate {
+	position: absolute;
+	background-image: url('icons/next.png');
+	top: 859px;
+	left: 1039px;
+	font-family: monospace;
+	font-size: 12px;
+	color: #22d;
+	border: 1px solid;
+	padding: 2px;
+	background-repeat: no-repeat;
+	width: 45px;
+	height: 45px;
+	background-size: 73px auto;
+	background-position: -11px top;
+	z-index: 9001;
+}
+
+#prevRate {
+	position: absolute;
+	background-image: url('icons/back.png');
+	top: 859px;
+	left: 8px;
+	font-family: monospace;
+	font-size: 12px;
+	color: #22d;
+	border: 1px solid;
+	padding: 2px;
+	background-repeat: no-repeat;
+	width: 45px;
+	height: 45px;
+	background-size: 73px auto;
+	background-position: -14px top;
+	z-index: 9001;
+}

@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Network Visualisaiton Documentation</title>
+	<link rel="stylesheet" type="text/css" href="doc.css">
+</head>
+<body>
+	<div id="header">
+		<h1>Network Visualisation</h1>
+		<div id="name">Phillip Gough</div>
+	</div>
+	<div class="left">
+		<p><a href="#top">Introduction</a></p>
+		<p><a href="#net">Network Graph</a></p>
+		<p><a href="#heat">Heatmaps</a></p>
+		<p><a href="#bars">Stacked Bar Chart</a></p>
+		<p><a href="#issues">Known Issues</a></p>
+		<p><a href="http://snippet.cam.nist.gov/~pjg4/">Snippet Page</a>
+		<p><a href="mailto:phillip.gough@nist.gov">E mail</a></p>
+	</div>
+	<div id="content">
+		<!-- <p><hr id="intro"/> </p> -->
+		<p>
+			<h2>Some documentation of the Network Visualisation</h2>
+			<h3>Tuesday 14th July, 2015</h3>
+		</p>
+		<div class="right">
+			Introduction
+		</div>
+		<p>
+			<a href="img/overview.png" target="_blank"><img src="img/overview.png" width="100%" title="Overview of network visualisation, Click to open in a new tab"></a> <div class="right">Figure 1</div>
+		</p>
+		<p>
+			This visualisation shows network congestion for different router settings, as network traffic is increased. <br/>
+			The objective of this visualisaiton is to allow the user to compare different router settings and show their performance over increased load.
+		</p>
+		<p>
+			It uses a Network Graph, Heatmaps and a Stacked Bar Chart.
+		</p>
+		<p>
+			<hr id="net"/>
+		</p>
+		<p>
+			<h2>Network Graph</h2>
+			<br />
+			<h4>Selected Configuration for a selected Injection Rate</h4>
+		</p>
+		<div class="right">
+			Network Graph Overview
+		</div>
+		<p>
+			<a href="img/network.png" target="blank"><img src="img/network.png" width="80%" title="Network graph.  Click to open in a new tab"></a> <div class="right">Figure 2</div>
+		</p>
+		<p>
+			The network graph shows the routers, their up/down queue length and occupancy status.
+		</p>
+		<p>
+			<h3>Reading the Network Graph</h3>
+		</p>
+		<p>
+			The backbone routers are stationary, aligned to a pre-existing arrangement. Other routers will self-organise so their parent nodes.  The fill color of each node (Figure 3) represents the type of router, as indicated in the "Group" legend of the network graph in the upper left corner (Figure 2).
+			<br />
+			Hovering over the elements on the legend shows the name of the group to which the colour is assigned.
+		</p>
+		<p style="text-align: center">
+			<img src="img/networkColours.png" title="Network nodes"> <div class="right">Figure 3</div>
+		</p>
+		<p>
+			The stroke colour (outline colour, shown in Figure 4) of the node shows the occupancy status of the router using the selected configuration, at the selected injection rate.
+			<br />
+			A dark red indicates that the node is cut off from the network, red indicates that it is congested (with a queue length of 124 or greater), and light yellow means that the router is unoccupied.
+		</p>
+		<p>
+			The two circles inside the node (see Figure 2) represent the current queue length of the router.  The upper circle represents the queue up, and the lower represents the queue down.  The values are represented by a logarithmic scale from light orange (0) to dark red (1,000,000), as shown by the upper right legend.
+		</p>
+		<p>
+			The data for any node can be shown by hovering the mouse over the node.  This will show a tooltip, and temporarily stops the nodes from moving.
+			<br />
+			The Tooltip shows:
+			<ul>
+				<li>
+					Router number, type in parentheses
+				</li>
+				<li>
+					Queue length up
+				</li>
+				<li>
+					Queue length down
+				</li>
+				<li>
+					Occupancy status.
+				</li>
+			</ul>
+		</p>
+		<p style="text-align: center">
+			<img src="img/networkTooltip.png" title="Network tooltip"> <div class="right">Figure 4</div>
+		</p>
+		<p>
+			<h3>Interaction</h3>
+		</p>
+		<p>
+			In addition than hovering over a node to show its tooltip, the injection rate can be increased or decreased by clicking on the icons in the lower corners of the network graph (Figure 2).
+		</p>
+		<p>
+			<hr  id="heat"/>
+		</p>
+		<p>
+			<h2>Heatmaps</h2>
+			<h4>All Configurations at a Selected Injection Rate</h4>
+		</p>
+		<div class="right">
+			Heatmap Overview
+		</div>
+		<p style="text-align: center">
+			<a href="img/heatmap.png" target="_blank" title="Heatmap. Click to open in a new tab"><img src="img/heatmap.png" width="70%"></a> <div class="right">Figure 5</div>
+		</p>
+		<p>
+			The heatmaps show a comparison of each different confguration at the selected injection rate.  
+		</p>
+		<p>
+			Each configuration has one rectangle for each router in the network.  The rectangles are arranged into columns, one for each group, and coloured according to the corresponding router's occupancy status.  The configuration shown on the Network Graph is highlighted in green, and a green circle next to the confguration number.
+		</p>
+		<p>
+			The files that only have grey boxes do no have data for the selected injection rate.
+		</p> 
+		<p>
+			Above the heatmap is the configuration settings for the router.
+		</p>
+		<p>
+			Figure 5 shows that configuration 127 is selected, and all settings are TRUE.  At the current injection rate there are some routers from group 3 (Normal Access) that are congested, and one from group 5 (Fast Access).  Configuration 127 shows a similar pattern to configurations 119, 63 and 55.
+		</p>
+		<p style="text-align: center">
+			<img src="img/heatmapTooltip.png" title="heatmap tooltip" width="100%"> <div class="right">Figure 6</div>
+		</p>
+		<p>
+			<h3>Interaction</h3>
+		</p>
+		<p>
+			By hovering over a rectangle in the selected configuration (see Figure 6), the corresponding node is indicated on the Network Graph by a green box, and a tooltip shows:
+			<ul>
+				<li>
+					Router number
+				</li>
+				<li>
+					Queue length up
+				</li>
+				<li>
+					Queue length down
+				</li>
+				<li>
+					Occupancy status.
+				</li>
+			</ul>
+		</p>
+		<p>
+			<h2>Settings</h2>
+		</p>
+		<div class="right">Configuration Options</div>
+		<p>
+			Settings for the visualisation are also next to the heatmap. <br />They are:
+			<ul>
+				<li>
+					Display of the current Configuration file
+				</li>
+				<li>
+					Display of the currently selected Injection Rate as a number, rather than the actual Injection rat (shown on the Stacked Bar Chart)
+				</li>
+				<li>
+					Checkboxes to show the queue length up and down indicators on the network nodes.
+				</li>
+				<li>
+					Checkbox to show the outline on the network nodes that indicates the occupancy state of the node.
+				</li>
+				<li>
+					Checkbox to freeze the position of the nodes in the simulation.  When this is checked, the nodes will not move.  When unchecked the nodes will move when the mouse moves off a node, and the network tooltip disappears.
+				</li>
+			</ul>
+		</p>
+		<p>
+			<hr  id="bars"/>
+		</p>
+		<p>
+			<h2>Stacked Bar Chart</h2>
+			<h4>All Injection Rates for a selected Configuration</h4>
+		</p>
+		<div class="right">
+			Stacked Bar Chart Overview
+		</div>
+		<p>
+			<a href="img/barchart.png" target="_blank" title="Stacked Bar Chart.  Click to open in a new window."><img src="img/barchart.png" width="100%"></a> <div class="right">Figure 7</div>
+		</p>
+		<p>
+			The stacked bar chart shows the ratio of unoccupied, congested and cutoff nodes over time, for the selected configuration (Figure 7 shows the Stacked Bar Chart for Configuration 127).
+		</p>
+		<p>
+			<h3>
+				Interaction
+			</h3>
+		</p>
+		<p>
+			Hovering over the Stacked Bar Chart will update the network display.  When the mouse leaves the bar chart, the network will return to the last selected Injection Rate, which is indicated by the green line.  When hovering, the nearest Injection Rate to the mouse is indicated by a blue line and the corresponding injection rate (see Figure 8).  This will not update the Heatmaps, but will update the network graph to show the injection rate indicated by the blue line.  Scrubbing along the stacked bar chart will show changes in router states with the increasing traffic.
+		</p>
+		<p>
+			To update the injection rate shown in the Heatmaps, click on the desired Injection Rate on the Stacked Bar Chart.  If the next Injection Rate is desired, the simplest way to select it is using the icons in the lower corners of the Network Graph.
+		</p>
+		<p style="text-align: center">
+			<img src="img/barchartHover.png" title="Stacked Bar Chart Selection", width="90%"> <div class="right">Figure 8</div>	
+		</p>
+		<p>
+			<hr id="issues"/>
+		</p>
+		<p>
+			<h2>Known Issues</h2>
+		</p>
+		<div class="right">Known Issues</div>
+		<p>
+		<p>
+			<h3>Visualisation</h3>
+		</p>
+			<ul>
+				<li>
+					Visualisation of 3000 Max. Injection Rate data does not properly select a configuration and timestep when initializing.  The user must select these initial conditions.  If the user does not do this: 
+					<ul>
+						<li>the tooltips will not work, </li>
+						<li>and there may be a mismatch between what sees displayed, and what appears to be selected</li>
+					</ul>
+				</li>
+				<li>
+					Assigning a fixed location to the 16 backbone routers broke the dragging functionality of nodes.  Backbone router nodes cannot be moved, and if the user tries to drag any other node, it will move to location (0, 0) if "Freeze Position" is unchecked.
+				</li>
+				<li>
+					Attempting to drag a node unfreezes the network positions.
+				</li>
+				<li>
+					Assigning a fixed location to the backbone routers also meant that nodes behave differently, moving a lot more when user moves the mouse off a node.
+				</li>
+				<li>
+					As the up/down indicators are drawn last, they may appear above a node that should be over the top of them.  SVGs do not have z-indexes (compared to html elements), so this is a bug from d3's drawing procedure.
+				</li>
+			</ul>
+		</p>
+		<p>
+			<h3>Preparing Data</h3>
+		</p>
+		<p>
+			The original visualisation files are parsed by a python script.  Before this script is run, there are two things to check:
+			<ol>
+				<li>
+					There must a line break after the value of the "Increment".  The first line should be the router settings, and the second should be the headers for the columns below.
+				</li>
+				<li>
+					The header "Router ID" needs to be changed to "RouterID"; removing this space will align headers with columns properly.  If this is not done, the python script may produce errors.
+				</li>
+			</ol>
+		</p>
+		<p>
+			<hr />
+		</p>
+	</div>
+</body>
+</html>
